@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { UserButton, auth } from "@clerk/nextjs";
 import Link from "next/link";
-import { ArrowRight, LogIn, FileText, Sparkles, MessageSquare } from "lucide-react";
+import { ArrowRight, LogIn, FileText, ShieldCheck } from "lucide-react";
 import FileUpload from "@/components/FileUpload";
 import { checkSubscription } from "@/lib/subscription";
 import SubscriptionButton from "@/components/SubscriptionButton";
@@ -21,55 +21,44 @@ export default async function Home() {
     }
   }
   return (
-    <div className="w-screen min-h-screen bg-zinc-950 text-zinc-100 flex flex-col items-center justify-center p-6 relative overflow-hidden">
-      {/* Background radial gradient subtle detail */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-900/50 via-zinc-950 to-zinc-950 pointer-events-none" />
-
-      <div className="relative z-10 max-w-2xl w-full flex flex-col items-center text-center space-y-6 border border-zinc-800 bg-zinc-900/60 p-8 rounded-2xl backdrop-blur-sm shadow-2xl">
-        <div className="flex items-center space-x-3">
-          <div className="p-3 bg-zinc-800 rounded-xl border border-zinc-700">
-            <FileText className="w-8 h-8 text-zinc-100" />
-          </div>
-          <h1 className="text-4xl font-bold tracking-tight text-white">chatwithpdf</h1>
+    <main className="min-h-screen bg-[#090909] px-5 py-6 text-zinc-100 sm:px-8">
+      <div className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-5xl flex-col">
+        <header className="flex items-center justify-between border-b border-zinc-800 pb-5">
+          <Link href="/" className="flex items-center gap-3">
+            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white text-zinc-950">
+              <FileText className="h-5 w-5" />
+            </span>
+            <span className="text-sm font-semibold tracking-tight">chatwithpdf</span>
+          </Link>
           <UserButton afterSignOutUrl="/" />
-        </div>
+        </header>
 
-        <div className="flex items-center gap-2 px-3 py-1 text-xs font-medium bg-zinc-800/80 text-zinc-300 rounded-full border border-zinc-700">
-          <Sparkles className="w-3.5 h-3.5 text-zinc-400" />
-          <span>Powered by Groq High-Speed AI</span>
-        </div>
-
-        <p className="text-zinc-400 text-base max-w-lg leading-relaxed">
-          Join millions of students, researchers and professionals to instantly
-          analyze, summarize, and understand PDFs with AI.
-        </p>
-
-        {isAuth && firstChat && (
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <Link href={`/chat/${firstChat.id}`}>
-              <Button className="bg-zinc-100 text-zinc-900 hover:bg-zinc-200 font-semibold px-5">
-                <MessageSquare className="w-4 h-4 mr-2" />
-                Go to Chats
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </Link>
-            <SubscriptionButton isPro={isPro} />
+        <section className="grid flex-1 items-center gap-12 py-16 lg:grid-cols-[1fr_420px] lg:gap-20">
+          <div className="max-w-xl">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900 px-3 py-1.5 text-xs text-zinc-400">
+              <ShieldCheck className="h-3.5 w-3.5 text-zinc-300" />
+              Private document workspace
+            </div>
+            <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-6xl sm:leading-[1.05]">Understand every page.</h1>
+            <p className="mt-6 max-w-md text-base leading-7 text-zinc-500">Upload a PDF and get clear answers from your document in seconds.</p>
+            {isAuth && firstChat && (
+              <Link href={`/chat/${firstChat.id}`} className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-zinc-300 transition hover:text-white">
+                Continue reading <ArrowRight className="h-4 w-4" />
+              </Link>
+            )}
           </div>
-        )}
-
-        <div className="w-full pt-2">
-          {isAuth ? (
-            <FileUpload />
-          ) : (
-            <Link href="/sign-in">
-              <Button className="w-full bg-zinc-100 text-zinc-900 hover:bg-zinc-200 font-semibold py-6 text-base rounded-xl">
-                Login to get Started
-                <LogIn className="w-5 h-5 ml-2" />
-              </Button>
-            </Link>
-          )}
-        </div>
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-2 shadow-2xl shadow-black/30">
+            <div className="border border-zinc-800/80 bg-zinc-900/40 p-6 sm:p-8">
+              <div className="mb-8 flex items-center justify-between">
+                <div><p className="text-sm font-medium text-zinc-200">New document</p><p className="mt-1 text-xs text-zinc-600">PDF · max 10 MB</p></div>
+                {isAuth && <SubscriptionButton isPro={isPro} />}
+              </div>
+              {isAuth ? <FileUpload /> : <Link href="/sign-in"><Button className="h-12 w-full rounded-lg bg-white text-sm font-semibold text-zinc-950 hover:bg-zinc-200"><LogIn className="mr-2 h-4 w-4" />Sign in to upload</Button></Link>}
+            </div>
+          </div>
+        </section>
+        <footer className="border-t border-zinc-800 py-4 text-xs text-zinc-600">Built for focused reading.</footer>
       </div>
-    </div>
+    </main>
   );
 }

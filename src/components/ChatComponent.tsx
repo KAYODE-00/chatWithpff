@@ -3,7 +3,7 @@ import React from "react";
 import { Input } from "./ui/input";
 import { useChat } from "ai/react";
 import { Button } from "./ui/button";
-import { Send, Sparkles, MessageSquare } from "lucide-react";
+import { Send, FileText } from "lucide-react";
 import MessageList from "./MessageList";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -41,17 +41,10 @@ const ChatComponent = ({ chatId }: Props) => {
   }, [messages]);
 
   return (
-    <div className="flex flex-col h-screen bg-zinc-950 text-zinc-100">
-      {/* header */}
-      <div className="p-4 bg-zinc-900/90 backdrop-blur border-b border-zinc-800 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <MessageSquare className="w-5 h-5 text-zinc-300" />
-          <h3 className="text-lg font-bold text-zinc-100">Chat Assistant</h3>
-        </div>
-        <div className="flex items-center gap-1.5 text-xs text-zinc-400 bg-zinc-800/80 px-2.5 py-1 rounded-full border border-zinc-700">
-          <Sparkles className="w-3 h-3 text-zinc-300" />
-          <span>Groq Engine</span>
-        </div>
+    <div className="flex h-screen flex-col bg-[#090909] text-zinc-100">
+      <div className="flex items-center justify-between border-b border-zinc-800 px-5 py-4">
+        <div className="flex items-center gap-2.5"><FileText className="h-4 w-4 text-zinc-500" /><h3 className="text-sm font-medium">Document chat</h3></div>
+        <span className="text-[11px] uppercase tracking-widest text-zinc-600">AI assistant</span>
       </div>
 
       {/* message list */}
@@ -62,7 +55,7 @@ const ChatComponent = ({ chatId }: Props) => {
       {/* input form */}
       <form
         onSubmit={handleSubmit}
-        className="p-4 bg-zinc-950 border-t border-zinc-800"
+        className="border-t border-zinc-800 bg-[#090909] p-4"
       >
         <div className="flex items-center gap-2">
           <Input
@@ -71,7 +64,7 @@ const ChatComponent = ({ chatId }: Props) => {
             placeholder="Ask any question about this PDF..."
             className="flex-1 bg-zinc-900 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus-visible:ring-zinc-500 rounded-xl"
           />
-          <Button type="submit" className="bg-zinc-100 hover:bg-zinc-200 text-zinc-900 font-semibold rounded-xl px-4">
+          <Button aria-label="Send message" type="submit" className="rounded-xl bg-white px-4 text-zinc-950 hover:bg-zinc-200">
             <Send className="h-4 w-4" />
           </Button>
         </div>

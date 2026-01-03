@@ -23,14 +23,15 @@ const SubscriptionButton = (props: Props) => {
     <Button
       disabled={loading}
       onClick={handleSubscription}
-      className="w-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-zinc-100 text-xs font-semibold py-2 px-3 rounded-lg transition-colors flex items-center justify-center"
+      aria-label={props.isPro ? "Manage subscription" : "Upgrade subscription"}
+      className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-xs font-semibold text-zinc-100 transition-colors hover:bg-zinc-800"
     >
       {loading ? (
         <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin text-zinc-400" />
       ) : (
         <Zap className="w-3.5 h-3.5 mr-1.5 text-zinc-300 fill-zinc-300" />
       )}
-      {props.isPro ? "Manage Subscription" : "Upgrade to Pro"}
+      {props.isPro ? "Manage plan" : "Upgrade"}
     </Button>
   );
 };

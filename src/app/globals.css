@@ -72,5 +72,13 @@
   }
   body {
     @apply bg-background text-foreground;
+    min-height: 100vh;
+    background: #090909;
   }
+}
+
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 999px; }
+  .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
 }

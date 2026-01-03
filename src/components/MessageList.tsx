@@ -20,7 +20,7 @@ const MessageList = ({ messages, isLoading }: Props) => {
     return (
       <div className="flex flex-col items-center justify-center p-12 text-center text-zinc-500 space-y-3">
         <Sparkles className="w-8 h-8 text-zinc-600" />
-        <p className="text-sm">Ask any question about your document to start chatting!</p>
+        <p className="text-sm">Your conversation starts here.</p>
       </div>
     );
   }

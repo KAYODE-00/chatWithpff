@@ -3,9 +3,10 @@ import { DrizzleChat } from "@/lib/db/schema";
 import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
-import { MessageSquare, PlusCircle, FileText, Sparkles } from "lucide-react";
+import { Plus, FileText, PanelLeftClose } from "lucide-react";
 import { cn } from "@/lib/utils";
 import SubscriptionButton from "./SubscriptionButton";
+import { Tooltip } from "./ui/tooltip";
 
 type Props = {
   chats: DrizzleChat[];
@@ -15,21 +16,22 @@ type Props = {
 
 const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
   return (
-    <div className="w-full h-screen overflow-hidden p-4 text-zinc-200 bg-zinc-950 border-r border-zinc-800 flex flex-col justify-between">
+    <aside className="flex h-screen w-full flex-col justify-between overflow-hidden border-r border-zinc-800 bg-[#0b0b0b] p-3 text-zinc-200">
       <div>
-        <Link href="/">
-          <Button className="w-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-zinc-100 font-semibold py-5 rounded-xl shadow-sm transition-colors flex items-center justify-center">
-            <PlusCircle className="mr-2 w-4 h-4 text-zinc-300" />
-            New Chat
-          </Button>
+        <div className="mb-5 flex items-center justify-between px-2">
+          <Link href="/" className="text-sm font-semibold tracking-tight text-white">chatwithpdf</Link>
+          <Tooltip label="Collapse sidebar"><button aria-label="Collapse sidebar" className="text-zinc-600 transition hover:text-zinc-300"><PanelLeftClose className="h-4 w-4" /></button></Tooltip>
+        </div>
+        <Link href="/" className="block">
+          <Button className="h-10 w-full rounded-lg border border-zinc-700 bg-white text-sm font-semibold text-zinc-950 transition hover:bg-zinc-200"><Plus className="mr-2 h-4 w-4" />New chat</Button>
         </Link>
 
-        <div className="flex overflow-y-auto max-h-[calc(100vh-140px)] pb-6 flex-col gap-2 mt-4 pr-1 scrollbar-thin scrollbar-thumb-zinc-800">
+        <div className="mt-6 flex max-h-[calc(100vh-160px)] flex-col gap-1 overflow-y-auto pr-1 scrollbar-thin">
           {chats.map((chat) => (
             <Link key={chat.id} href={`/chat/${chat.id}`}>
               <div
                 className={cn(
-                  "rounded-lg p-3 flex items-center transition-all cursor-pointer text-sm font-medium",
+                  "flex items-center rounded-lg px-3 py-2.5 text-sm font-medium transition-all",
                   {
                     "bg-zinc-800 text-white border border-zinc-700 shadow-sm":
                       chat.id === chatId,
@@ -38,7 +40,7 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
                   }
                 )}
               >
-                <FileText className="mr-2.5 w-4 h-4 flex-shrink-0 text-zinc-400" />
+                <FileText className="mr-2.5 h-4 w-4 flex-shrink-0 text-zinc-500" />
                 <p className="w-full overflow-hidden truncate whitespace-nowrap text-ellipsis">
                   {chat.pdfName}
                 </p>
@@ -48,10 +50,10 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
         </div>
       </div>
 
-      <div className="pt-3 border-t border-zinc-800 flex items-center justify-between">
+      <div className="flex items-center justify-between border-t border-zinc-800 pt-3">
         <SubscriptionButton isPro={isPro} />
       </div>
-    </div>
+    </aside>
   );
 };
 

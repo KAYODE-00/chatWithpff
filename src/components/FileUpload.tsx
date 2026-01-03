@@ -1,7 +1,7 @@
 "use client";
 import { uploadToS3 } from "@/lib/s3";
 import { useMutation } from "@tanstack/react-query";
-import { UploadCloud, Loader2, FileUp } from "lucide-react";
+import { UploadCloud, Loader2 } from "lucide-react";
 import React from "react";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
@@ -65,11 +65,11 @@ const FileUpload = () => {
     },
   });
   return (
-    <div className="p-1 bg-zinc-900 border border-zinc-800 rounded-xl">
+    <div className="rounded-xl border border-zinc-800 bg-zinc-950 p-1">
       <div
         {...getRootProps({
           className:
-            "border-dashed border-2 border-zinc-700 hover:border-zinc-500 rounded-xl cursor-pointer bg-zinc-950/80 hover:bg-zinc-900 transition-colors py-8 flex justify-center items-center flex-col space-y-2",
+            "flex cursor-pointer flex-col items-center justify-center space-y-2 rounded-lg border-2 border-dashed border-zinc-800 bg-zinc-950 py-10 transition-colors hover:border-zinc-500 hover:bg-zinc-900",
         })}
       >
         <input {...getInputProps()} />
@@ -78,7 +78,7 @@ const FileUpload = () => {
             {/* loading state */}
             <Loader2 className="h-9 w-9 text-zinc-300 animate-spin" />
             <p className="mt-2 text-sm font-medium text-zinc-300">
-              Processing & Analyzing Document...
+              Processing document
             </p>
           </>
         ) : (
@@ -87,7 +87,7 @@ const FileUpload = () => {
               <UploadCloud className="w-8 h-8 text-zinc-200" />
             </div>
             <p className="text-sm font-medium text-zinc-200">
-              Drop your PDF here or click to browse
+              Add a PDF
             </p>
             <p className="text-xs text-zinc-500">PDF up to 10MB</p>
           </>
